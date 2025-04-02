@@ -1,23 +1,32 @@
 package org.skypro.skyexam.examinerservice.controller;
 
-import org.skypro.skyexam.examinerservice.service.QuestionService;
+import org.skypro.skyexam.examinerservice.domain.Question;
+import org.skypro.skyexam.examinerservice.service.JavaQuestionService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/exam/java")
 public class JavaQuestionController {
-    private QuestionService questionService;
-    public JavaQuestionController(QuestionService questionService) {
+    private JavaQuestionService questionService;
+
+    public JavaQuestionController(JavaQuestionService questionService) {
         this.questionService = questionService;
     }
-    //FIXME
-    //      Методы контроллера:
-    // Добавить вопрос:
-    // /exam/java/add?question=QuestionText&answer=QuestionAnswer
-    // Удалить вопрос:
-    // /exam/java/remove?question=QuestionText&answer=QuestionAnswer
-    // Получить все вопросы:
-    // /exam/java
-
+    @GetMapping("/")
+    Collection<Question> getQuestions() {
+        return questionService.getQuestions();
+    }
+    @GetMapping("/remove/{question}&{answer}")
+    public Question removeQuestion(@PathVariable ("question")String question,@PathVariable("answer") String answer) {
+        return questionService.remove(question, answer);
+    }
+    @GetMapping("/add/{question}&{answer}")
+public Question addQuestion(@PathVariable ("question")String question,@PathVariable("answer") String answer) {
+return questionService.add(question,answer);
+}
 }
