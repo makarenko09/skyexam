@@ -55,22 +55,6 @@ public class JavaQuestionService implements QuestionService {
         return questions;
     }
 
-    public List<Question> getRandomQuestions(int amount) {
-        if (amount > questions.size()) {
-            throw new IllegalArgumentException("Amount exceeds available questions");
-        }
-        java.util.Random random = new java.util.Random();
-        List<Question> result = new ArrayList<>();
-        while (result.size() < amount) {
-            int index = random.nextInt(questions.size());
-            Question question = questions.get(index);
-            if (!result.contains(question)) {
-                result.add(question);
-            }
-        }
-        return result;
-    }
-
     @Override
     public Question getRandomQuestion() {
         java.util.Random random = new java.util.Random();
