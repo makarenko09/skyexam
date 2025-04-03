@@ -4,6 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+.gitattributes
+*.properties
+mvnw
+mvnw.cmd
 ### STS ###
 .apt_generated
 .classpath
