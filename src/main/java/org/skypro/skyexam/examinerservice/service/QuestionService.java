@@ -6,15 +6,13 @@ import java.util.List;
 
 public interface QuestionService {
 
-    //    Collection<Question> getQuestions(int amount) {
-//        return
-//    };
     List<Question> getQuestions();
 
     Question getRandomQuestion();
 
     Question add(Question question);
+    Question add(String question, String answer);
 
-    Question remove(String question, String answer);
+    Question remove(Question question);
 
 }

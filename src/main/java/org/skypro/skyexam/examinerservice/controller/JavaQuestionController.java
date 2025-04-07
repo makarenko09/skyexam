@@ -2,10 +2,7 @@ package org.skypro.skyexam.examinerservice.controller;
 
 import org.skypro.skyexam.examinerservice.domain.Question;
 import org.skypro.skyexam.examinerservice.service.JavaQuestionService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -23,13 +20,17 @@ public class JavaQuestionController {
         return questionService.getQuestions();
     }
 
-    @GetMapping("/remove/{question}&{answer}")
-    public Question removeQuestion(@PathVariable("question") String question, @PathVariable("answer") String answer) {
-        return questionService.remove(question, answer);
+    @GetMapping("/remove")
+    @ResponseBody
+    public Question removeQuestion(@RequestParam("question") String question, @RequestParam("answer") String answer) {
+
+        Question object = new Question(question, answer);
+        return questionService.remove(object);
     }
 
-    @GetMapping("/add/{question}&{answer}")
-    public Question addQuestion(@PathVariable("question") String question, @PathVariable("answer") String answer) {
+    @GetMapping("/add")
+    @ResponseBody
+    public Question addQuestion(@RequestParam("question") String question, @RequestParam("answer") String answer) {
         return questionService.add(question, answer);
     }
 }

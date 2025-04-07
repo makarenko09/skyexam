@@ -4,60 +4,62 @@ import org.skypro.skyexam.examinerservice.domain.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
+
 public class JavaQuestionService implements QuestionService {
-    private final List<Question> questions;
+    private List<Question> questions;
 
-
-    //TODO - Разобраться с конструтктором
-    public JavaQuestionService(List<Question> questions) {
-        this.questions = questions;
+    public JavaQuestionService() {
+        questions = new ArrayList<>();
     }
 
     @Override
     public Question add(Question question) {
         if (!questions.contains(question)) {
             questions.add(question);
+            return questions.get(this.questions.size() - 1);
         } else {
             throw new IllegalArgumentException("Duplicate question");
         }
-        return this.questions.get(questions.indexOf(question));
-    }
-
-    public Question add(String question, String answer) {
-        Question result = null;
-        for (Question q : questions) {
-            if (!q.getQuestion().equals(question) && !q.getAnswer().equals(answer)) {
-                result = new Question(question, answer);
-                this.add(result);
-            } else {
-                throw new IllegalArgumentException("Duplicate question");
-            }
-        }
-        return this.questions.get(questions.indexOf(result));
     }
 
     @Override
-    public Question remove(String question, String answer) {
-        Question toRemove = new Question(question, answer);
-        if (questions.remove(toRemove)) {
-            System.out.println("Question removed: " + question);
+    public Question add(String question, String answer) {
+        if (!questions.contains(new Question(question, answer))) {
+            questions.add(new Question(question, answer));
+            return questions.get(this.questions.size() - 1); // Возвращаем последний добавленный элемент
         } else {
-            System.out.println("Question not found: " + question);
+            throw new IllegalArgumentException("Duplicate question");
         }
-        return toRemove;
+    }
+
+    @Override
+    public Question remove(Question question) {
+        Iterator<Question> iterator = questions.iterator();
+        while (iterator.hasNext()) {
+            Question temp = iterator.next();
+            if (temp.getQuestion().equals(question.getQuestion())) {
+                iterator.remove();
+            }
+        }
+        return new Question(question.getQuestion(), question.getAnswer());
     }
 
     @Override
     public List<Question> getQuestions() {
-        return questions;
+        return new ArrayList<>((this.questions));
     }
 
     @Override
     public Question getRandomQuestion() {
         java.util.Random random = new java.util.Random();
         return questions.get(random.nextInt(questions.size()));
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 }
