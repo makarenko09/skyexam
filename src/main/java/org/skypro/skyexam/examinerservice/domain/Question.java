@@ -1,6 +1,7 @@
 package org.skypro.skyexam.examinerservice.domain;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class Question {
     @Override
@@ -18,6 +19,9 @@ public class Question {
     private String answer;
 
     public Question(String question, String answer) {
+        if (!Pattern.matches("^.{2,100}$", question)) {
+            throw new IllegalArgumentException("Некорректной вопрос");
+        }
         this.question = question;
         this.answer = answer;
     }

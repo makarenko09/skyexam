@@ -23,7 +23,6 @@ public class JavaQuestionController {
     @GetMapping("/remove")
     @ResponseBody
     public Question removeQuestion(@RequestParam("question") String question, @RequestParam("answer") String answer) {
-
         Question object = new Question(question, answer);
         return questionService.remove(object);
     }

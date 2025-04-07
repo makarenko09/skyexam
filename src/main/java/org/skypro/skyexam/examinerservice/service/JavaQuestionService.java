@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 
@@ -30,7 +31,7 @@ public class JavaQuestionService implements QuestionService {
     public Question add(String question, String answer) {
         if (!questions.contains(new Question(question, answer))) {
             questions.add(new Question(question, answer));
-            return questions.get(this.questions.size() - 1); // Возвращаем последний добавленный элемент
+            return questions.get(this.questions.size() - 1);
         } else {
             throw new IllegalArgumentException("Duplicate question");
         }
@@ -38,6 +39,10 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question remove(Question question) {
+        if (questions.size() == 0 || !questions.contains(question)) {
+            throw new NoSuchQuestionException();
+        }
+
         Iterator<Question> iterator = questions.iterator();
         while (iterator.hasNext()) {
             Question temp = iterator.next();
@@ -50,7 +55,9 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public List<Question> getQuestions() {
-        return new ArrayList<>((this.questions));
+//        Optional.ofNullable(new ArrayList<>(questions));
+
+        return new ArrayList<>(Optional.ofNullable(questions).orElse(new ArrayList<>()));
     }
 
     @Override
