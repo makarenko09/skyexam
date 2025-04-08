@@ -18,8 +18,6 @@ import static org.mockito.Mockito.when;
 class JavaQuestionServiceTest {
     @Mock
     private JavaQuestionService javaQuestionService;
-    @Mock
-    private List<Question> questions;
 
     @Test
     public void getCollection_nonExistentQuestion_ReturnEmptyCollection() {
@@ -28,7 +26,7 @@ class JavaQuestionServiceTest {
     }
 
     @Test
-    public void addQuestion_success() throws NoSuchFieldException {
+    public void addQuestion_existentQuestion_ReturnQuestion() {
         String question = "QuestionTest";
         String answer = "AnswerTest";
         Question someQuestionTest = new Question(question, answer);
@@ -50,7 +48,7 @@ class JavaQuestionServiceTest {
     }
 
     @Test
-    void getRandomQuestion() {
+    void getRandomQuestion_OneExistentQuestion_ReturnThisQuestion() {
         String question = "QuestionTest";
         String answer = "AnswerTest";
         Question someQuestionTest = new Question(question, answer);
