@@ -11,6 +11,7 @@ public interface QuestionService {
     Question getRandomQuestion();
 
     Question add(Question question);
+
     Question add(String question, String answer);
 
     Question remove(Question question);

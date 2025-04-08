@@ -4,17 +4,6 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class Question {
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Question)) return false;
-        return Objects.equals(question, ((Question) o).question);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(question);
-    }
-
     private String question;
     private String answer;
 
@@ -26,20 +15,31 @@ public class Question {
         this.answer = answer;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Question)) return false;
+        return Objects.equals(question, ((Question) o).question);
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(question);
     }
 
     public String getQuestion() {
         return question;
     }
 
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
     public String getAnswer() {
         return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     @Override

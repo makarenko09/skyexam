@@ -55,18 +55,16 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public List<Question> getQuestions() {
-//        Optional.ofNullable(new ArrayList<>(questions));
-
         return new ArrayList<>(Optional.ofNullable(questions).orElse(new ArrayList<>()));
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
     @Override
     public Question getRandomQuestion() {
         java.util.Random random = new java.util.Random();
         return questions.get(random.nextInt(questions.size()));
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
     }
 }
