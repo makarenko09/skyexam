@@ -27,12 +27,12 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question add(String question, String answer) {
-        if (!questions.contains(new Question(question, answer))) {
-            questions.add(new Question(question, answer));
-            return questions.get(this.questions.size() - 1);
-        } else {
-            throw new IllegalArgumentException("Duplicate question");
+        Question questionObject = new Question(question, answer);
+        if (questions.contains(questionObject)) {
+            throw new QuestionIsBusyException("- Duplicate question: " + questionObject);
         }
+        questions.add(questionObject);
+            return questions.get(this.questions.size() - 1);
     }
 
     @Override
@@ -54,3 +54,4 @@ public class JavaQuestionService implements QuestionService {
         return questions.get(random.nextInt(questions.size()));
     }
 }
+

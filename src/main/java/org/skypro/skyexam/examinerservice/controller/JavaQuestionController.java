@@ -4,6 +4,7 @@ import org.skypro.skyexam.examinerservice.domain.Question;
 import org.skypro.skyexam.examinerservice.service.ExamError;
 import org.skypro.skyexam.examinerservice.service.JavaQuestionService;
 import org.skypro.skyexam.examinerservice.service.NoSuchQuestionException;
+import org.skypro.skyexam.examinerservice.service.QuestionIsBusyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,9 +40,19 @@ public class JavaQuestionController {
         return questionService.remove(object);
     }
 
+    @ExceptionHandler(QuestionIsBusyException.class)
+    public ResponseEntity<ExamError> handleQuestionIsBusyException(QuestionIsBusyException e) {
+        String code = "FORBIDDEN";
+        String message = String.format("%s %s", LocalDateTime.now(), e.getMessage());
+        ExamError examError = new ExamError(code, message);
+        return new ResponseEntity<ExamError>(examError, HttpStatus.FORBIDDEN);
+    }
     @GetMapping("/add")
     @ResponseBody
     public Question addQuestion(@RequestParam("question") String question, @RequestParam("answer") String answer) {
         return questionService.add(question, answer);
     }
 }
+
+
+
