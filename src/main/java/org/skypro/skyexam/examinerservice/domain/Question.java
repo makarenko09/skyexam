@@ -23,7 +23,7 @@ public class Question {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(question);
+        return Objects.hash(question, answer);
     }
 
     public String getQuestion() {
@@ -44,9 +44,6 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{" +
-                "question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
-                '}';
+        return "{" + "question='" + question + '\'' + ", answer='" + answer + '\'' + '}';
     }
 }

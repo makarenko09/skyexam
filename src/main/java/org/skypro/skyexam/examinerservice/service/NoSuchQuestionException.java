@@ -5,7 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND)
 public class NoSuchQuestionException extends RuntimeException {
-    public NoSuchQuestionException() {
-        super();
+    private String message;
+    public NoSuchQuestionException(String message) {
+        super(message);
     }
 }

@@ -5,7 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
 public class MoreQuestionsRequestedException extends RuntimeException {
-    public MoreQuestionsRequestedException() {
-        super();
+    private String message;
+    public MoreQuestionsRequestedException(String message) {
+        super(message);
     }
 }

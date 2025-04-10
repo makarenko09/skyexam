@@ -19,7 +19,7 @@ public class ExaminerServiceImpl implements ExaminerService {
     public Collection<Question> getQuestions(int amount) {
         List<Question> questions = questionService.getQuestions();
         if (questions.size() < amount) {
-            throw new MoreQuestionsRequestedException();
+            throw new MoreQuestionsRequestedException("- Запрошено вопросов: " + String.valueOf(amount) + ", Вопросов в наличии: " + String.valueOf(questions.size()));
         }
         List<Question> results = new ArrayList<>();
         while (results.size() < amount) {

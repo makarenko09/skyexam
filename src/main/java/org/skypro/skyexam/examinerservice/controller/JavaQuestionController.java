@@ -21,7 +21,7 @@ public class JavaQuestionController {
     }
 
     @GetMapping("/")
-    Collection<Question> getQuestions() {
+    public Collection<Question> getQuestions() {
         return questionService.getQuestions();
     }
 
